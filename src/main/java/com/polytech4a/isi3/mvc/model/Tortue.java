@@ -78,8 +78,12 @@ public class Tortue extends Observable{
      * @param dist distance sur laquelle avancer.
      */
     public void avancer(int dist) {
-        position.setX((int) FastMath.round(position.getX() + dist * FastMath.cos(FastMath.toRadians(direction))));
-        position.setY((int) FastMath.round(position.getY() + dist * FastMath.sin(FastMath.toRadians(direction))));
+        int x=(int) FastMath.round(position.getX() + dist * FastMath.cos(FastMath.toRadians(direction)));
+        int y=(int) FastMath.round(position.getY() + dist * FastMath.sin(FastMath.toRadians(direction)));
+        position.setX(x);
+        position.setY(y);
+        this.setChanged();
+        this.notifyObservers();
     }
 
     /**
@@ -89,6 +93,8 @@ public class Tortue extends Observable{
      */
     public void droite(int ang) {
         direction = (direction + ang) % 360;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     /**
@@ -98,14 +104,18 @@ public class Tortue extends Observable{
      */
     public void gauche(int ang) {
         direction = (direction - ang) % 360;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     /**
      * Réinitialisation aux valeurs par défaut de la tortue.
      */
     public void reset() {
-        position.setX(0);
-        position.setY(0);
+        position.setX(500/2);
+        position.setY(400/2);
         direction = -90;
+        this.setChanged();
+        this.notifyObservers();
     }
 }

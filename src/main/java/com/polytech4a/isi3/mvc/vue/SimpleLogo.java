@@ -91,10 +91,9 @@ public class SimpleLogo extends JFrame implements Observer{
         inputValue = new JTextField("45", 5);
         toolBar.add(inputValue);
         addButton(toolBar, "Avancer", "Avancer 50", null);
-        addButton(toolBar, "Droite", "Droite 45", null);
         addButton(toolBar, "Gauche", "Gauche 45", null);
-        addButton(toolBar, "Lever", "Lever Crayon", null);
-        addButton(toolBar, "Baisser", "Baisser Crayon", null);
+        addButton(toolBar, "Droite", "Droite 45", null);
+
 
         String[] colorStrings = {"noir", "bleu", "cyan", "gris fonce", "rouge",
                 "vert", "gris clair", "magenta", "orange",
@@ -128,15 +127,8 @@ public class SimpleLogo extends JFrame implements Observer{
         JMenu menuCommandes = new JMenu("Commandes"); // on installe le premier menu
         menubar.add(menuCommandes);
         addMenuItem(menuCommandes, "Avancer", "Avancer", -1);
-        addMenuItem(menuCommandes, "Droite", "Droite", -1);
         addMenuItem(menuCommandes, "Gauche", "Gauche", -1);
-        addMenuItem(menuCommandes, "Lever Crayon", "Lever", -1);
-        addMenuItem(menuCommandes, "Baisser Crayon", "Baisser", -1);
-
-        JMenu menuHelp = new JMenu("Aide"); // on installe le premier menu
-        menubar.add(menuHelp);
-        addMenuItem(menuHelp, "Aide", "Help", -1);
-        addMenuItem(menuHelp, "A propos", "About", -1);
+        addMenuItem(menuCommandes, "Droite", "Droite", -1);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -161,14 +153,7 @@ public class SimpleLogo extends JFrame implements Observer{
 
         getContentPane().add(feuille, "Center");
 
-        // Creation de la tortue
-        Tortue tortue = new Tortue();
-
-        // Deplacement de la tortue au centre de la feuille
-
-
-        courante = tortue;
-        feuille.addTortue(tortue);
+        feuille.addTortue(this.courante);
 
         pack();
         setVisible(true);
