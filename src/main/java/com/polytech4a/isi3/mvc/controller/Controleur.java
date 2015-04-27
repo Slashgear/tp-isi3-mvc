@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.text.Position;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Created by Antoine CARON on 22/04/2015.

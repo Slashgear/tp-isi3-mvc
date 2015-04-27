@@ -9,6 +9,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -95,22 +96,29 @@ public class SimpleLogo extends JFrame implements Observer{
         addButton(toolBar, "Droite", "Droite 45", null);
 
 
-        String[] colorStrings = {"noir", "bleu", "cyan", "gris fonce", "rouge",
-                "vert", "gris clair", "magenta", "orange",
-                "gris", "rose", "jaune"};
+        final HashMap<String,Color> map=new HashMap<String, Color>();
+        map.put("noir",Color.black);
+        map.put("red",Color.red);
+        map.put("bleu",Color.blue);
+        map.put("cyan",Color.cyan);
+        map.put("gris",Color.darkGray);
+        map.put("yellow",Color.yellow);
+        map.put("magenta",Color.magenta);
 
         // Create the combo box
         toolBar.add(Box.createRigidArea(HGAP));
         JLabel colorLabel = new JLabel("   Couleur: ");
         toolBar.add(colorLabel);
-        JComboBox colorList = new JComboBox(colorStrings);
+        JComboBox colorList = new JComboBox(map.keySet().toArray());
         toolBar.add(colorList);
 
         colorList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox) e.getSource();
                 int n = cb.getSelectedIndex();
-                //courante.setColor(n);
+                String color= (String) cb.getItemAt(n);
+                Color c=map.get(color);
+                courante.setColor(c);
             }
         });
 

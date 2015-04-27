@@ -2,6 +2,7 @@ package com.polytech4a.isi3.mvc.model;
 
 import org.apache.commons.math3.util.FastMath;
 
+import java.awt.*;
 import java.util.Observable;
 
 /**
@@ -23,6 +24,21 @@ public class Tortue extends Observable{
      * Angle en degré pour la direction de la tortue.
      */
     private double direction;
+
+    /**
+     * Color.
+     */
+    private Color color;
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+        this.setChanged();
+        this.notifyObservers();
+    }
 
     public Position getPosition() {
         return position;
@@ -58,6 +74,7 @@ public class Tortue extends Observable{
     public Tortue(Position position, double direction) {
         this.position = position;
         this.direction = direction;
+        this.color=Color.green;
         this.setChanged();
         this.notifyObservers();
     }
@@ -68,6 +85,7 @@ public class Tortue extends Observable{
     public Tortue() {
         this.position=new Position(500 / 2, 400 / 2);
         this.direction=-90;
+        this.color=Color.green;
         this.setChanged();
         this.notifyObservers();
     }
