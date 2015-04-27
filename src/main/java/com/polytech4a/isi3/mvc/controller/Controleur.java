@@ -36,8 +36,8 @@ public class Controleur implements ActionListener {
 
     public Controleur() {
         tortue = new Tortue();
-        tortue.setPosition(500 / 2, 400 / 2);
         simpleLogo = new SimpleLogo(this);
+        tortue.addObserver(simpleLogo);
     }
 
     public void actionPerformed(ActionEvent e) {

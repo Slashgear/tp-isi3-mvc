@@ -2,6 +2,8 @@ package com.polytech4a.isi3.mvc.model;
 
 import org.apache.commons.math3.util.FastMath;
 
+import java.util.Observable;
+
 /**
  * Created by Adrien CHAUSSENDE on 22/04/2015.
  *
@@ -10,7 +12,7 @@ import org.apache.commons.math3.util.FastMath;
  *          <p/>
  *          Classe modèle pour la Tortue.
  */
-public class Tortue{
+public class Tortue extends Observable{
 
     /**
      * Position de la tortue.
@@ -28,11 +30,15 @@ public class Tortue{
 
     public void setPosition(Position position) {
         this.position = position;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public void setPosition(int x,int y){
         this.position.setX(x);
         this.position.setY(y);
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public double getDirection() {
@@ -52,14 +58,18 @@ public class Tortue{
     public Tortue(Position position, double direction) {
         this.position = position;
         this.direction = direction;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     /**
      * Constructeur vide. Initialise une position et un angle par défaut : (0;0) et -90°
      */
     public Tortue() {
-        this.position=new Position(0,0);
+        this.position=new Position(500 / 2, 400 / 2);
         this.direction=-90;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     /**
@@ -98,6 +108,4 @@ public class Tortue{
         position.setY(0);
         direction = -90;
     }
-
-
 }

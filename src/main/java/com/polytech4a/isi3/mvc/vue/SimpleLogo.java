@@ -9,6 +9,8 @@ import java.awt.*;
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
@@ -28,7 +30,7 @@ import java.awt.event.*;
  */
 
 
-public class SimpleLogo extends JFrame {
+public class SimpleLogo extends JFrame implements Observer{
     public static final Dimension VGAP = new Dimension(1, 5);
     public static final Dimension HGAP = new Dimension(5, 1);
 
@@ -64,7 +66,6 @@ public class SimpleLogo extends JFrame {
         this.courante = controleur.getTortue();
         logoInit();
         this.setVisible(true);
-
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent arg0) {
@@ -235,5 +236,9 @@ public class SimpleLogo extends JFrame {
             else
                 menuItem.setAccelerator(KeyStroke.getKeyStroke(key, 0, false));
         }
+    }
+
+    public void update(Observable o, Object arg) {
+        this.getFeuille().repaint();
     }
 }
