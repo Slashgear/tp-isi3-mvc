@@ -80,15 +80,21 @@ public class Controleur implements ActionListener, MouseListener {
         } else if (c.equals("Quitter")) {
             simpleLogo.quitter();
         } else if (c.equals("Ajouter")){
-            TortueAmelioree t=new TortueAmelioree();
-            tortues.add(t);
-            t.setNom(t.getNom()+tortues.indexOf(t));
-            t.addObserver(simpleLogo);
-            simpleLogo.getTortues().add(t);
-            simpleLogo.setCourante(t);
-            simpleLogo.getFeuille().addTortue(new VueTortue(t));
-            currentTortue=t;
-            t.notifyObservers();
+            if(!simpleLogo.getTortueName().isEmpty()){
+                TortueAmelioree t=new TortueAmelioree();
+                t.getTortuesConnues().addAll(tortues);
+                tortues.parallelStream().forEach(ct->ct.getTortuesConnues().add(t));
+                tortues.add(t);
+                t.setNom(simpleLogo.getTortueName());
+                t.addObserver(simpleLogo);
+                simpleLogo.getTortues().add(t);
+                simpleLogo.setCourante(t);
+                simpleLogo.getFeuille().addTortue(new VueTortue(t));
+                currentTortue=t;
+                t.notifyObservers();
+            }else {
+                System.out.println("Nom de la tortue Vide");
+            }
         }
         simpleLogo.getFeuille().repaint();
     }

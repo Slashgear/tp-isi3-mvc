@@ -108,7 +108,7 @@ public class TortueAmelioree extends Tortue {
      * @return True si la tortue est proche de la tortue passée en paramètre. False sinon.
      */
     public boolean estProche(Tortue t) {
-        return this.distanceEuclidienne(t) <= 15;
+        return this.distanceEuclidienne(t) <= 50;
     }
 
     /**

@@ -41,6 +41,8 @@ public class SimpleLogo extends JFrame implements Observer{
     private JTextField inputValue;
     private Controleur controleur;
 
+    private JTextField tortueName;
+
     private ArrayList<Tortue> tortues=new ArrayList<Tortue>();
 
     public ArrayList<Tortue> getTortues() {
@@ -90,12 +92,14 @@ public class SimpleLogo extends JFrame implements Observer{
 
         toolBar.add(Box.createRigidArea(HGAP));
         inputValue = new JTextField("45", 5);
+        tortueName =new JTextField("",5);
+        tortueName.setToolTipText("Nom de la nouvelle Tortue");
         toolBar.add(inputValue);
         addButton(toolBar, "Avancer", "Avancer 50", null);
         addButton(toolBar, "Gauche", "Gauche 45", null);
         addButton(toolBar, "Droite", "Droite 45", null);
         addButton(toolBar, "Ajouter","ajouter",null);
-
+        toolBar.add(tortueName);
 
         final HashMap<String,Color> map=new HashMap<String, Color>();
         map.put("noir",Color.black);
@@ -157,6 +161,11 @@ public class SimpleLogo extends JFrame implements Observer{
     public String getInputValue() {
         String s = inputValue.getText();
         return (s);
+    }
+
+    public String getTortueName(){
+        String s= tortueName.getText();
+        return s;
     }
 
 
