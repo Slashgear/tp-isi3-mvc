@@ -127,6 +127,7 @@ public class TortueAmelioree extends Tortue {
 
     @Override
     public void avancer(int dist) {
+        super.avancer(dist);
         tortuesConnues.parallelStream().filter(t -> this.estProche(t)).forEach(t -> {
             StringBuffer message = new StringBuffer();
             message.append("SALUT ");
@@ -141,6 +142,5 @@ public class TortueAmelioree extends Tortue {
             int y = (int) FastMath.round(t.getPosition().getY() + 10 * FastMath.sin(FastMath.toRadians(t.getDirection())));
             t.setPosition(x, y);
         });
-        super.avancer(dist);
     }
 }
