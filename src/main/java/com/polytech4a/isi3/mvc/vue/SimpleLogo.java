@@ -9,6 +9,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -40,22 +41,19 @@ public class SimpleLogo extends JFrame implements Observer{
     private JTextField inputValue;
     private Controleur controleur;
 
+    private ArrayList<Tortue> tortues=new ArrayList<Tortue>();
+
+    public ArrayList<Tortue> getTortues() {
+        return tortues;
+    }
+
+    public void setCourante(Tortue courante) {
+        this.courante = courante;
+    }
+
     public FeuilleDessin getFeuille() {
         return feuille;
     }
-
-    /**
-     * @param args public static void main(String[] args) {
-     *             SwingUtilities.invokeLater(new Runnable(){
-     *             public void run(){
-     *             <p>
-     *             SimpleLogo fenetre = new SimpleLogo();
-     *             fenetre.setVisible(true);
-     *             }
-     *             });
-     *             <p>
-     *             }
-     */
 
     public void quitter() {
         System.exit(0);
@@ -64,8 +62,10 @@ public class SimpleLogo extends JFrame implements Observer{
     public SimpleLogo(Controleur controleur) {
         super("un logo tout simple");
         this.controleur = controleur;
-        this.courante = controleur.getTortue();
+        this.courante = controleur.getCurrentTortue();
+        tortues.add(courante);
         logoInit();
+        feuille.addMouseListener(controleur);
         this.setVisible(true);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -94,6 +94,7 @@ public class SimpleLogo extends JFrame implements Observer{
         addButton(toolBar, "Avancer", "Avancer 50", null);
         addButton(toolBar, "Gauche", "Gauche 45", null);
         addButton(toolBar, "Droite", "Droite 45", null);
+        addButton(toolBar, "Ajouter","ajouter",null);
 
 
         final HashMap<String,Color> map=new HashMap<String, Color>();
@@ -137,23 +138,9 @@ public class SimpleLogo extends JFrame implements Observer{
         addMenuItem(menuCommandes, "Avancer", "Avancer", -1);
         addMenuItem(menuCommandes, "Gauche", "Gauche", -1);
         addMenuItem(menuCommandes, "Droite", "Droite", -1);
+        addMenuItem(menuCommandes,"Ajouter Tortue","Ajouter Tortue",-1);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        // les boutons du bas
-        JPanel p2 = new JPanel(new GridLayout());
-        JButton b20 = new JButton("Proc1");
-        p2.add(b20);
-        b20.addActionListener(controleur);
-        JButton b21 = new JButton("Proc2");
-        p2.add(b21);
-        b21.addActionListener(controleur);
-        JButton b22 = new JButton("Proc3");
-        p2.add(b22);
-        b22.addActionListener(controleur);
-
-        getContentPane().add(p2, "South");
-
         feuille = new FeuilleDessin(); //500, 400);
         feuille.setBackground(Color.white);
         feuille.setSize(new Dimension(600, 400));
@@ -232,6 +219,7 @@ public class SimpleLogo extends JFrame implements Observer{
     }
 
     public void update(Observable o, Object arg) {
+        feuille.setTortues(this.tortues);
         this.getFeuille().repaint();
     }
 }
