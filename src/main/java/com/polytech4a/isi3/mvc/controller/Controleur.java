@@ -2,8 +2,10 @@ package com.polytech4a.isi3.mvc.controller;
 
 
 import com.polytech4a.isi3.mvc.model.Tortue;
+import com.polytech4a.isi3.mvc.model.TortueAmelioree;
 import com.polytech4a.isi3.mvc.vue.FeuilleDessin;
 import com.polytech4a.isi3.mvc.vue.SimpleLogo;
+import com.polytech4a.isi3.mvc.vue.VueTortue;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -25,9 +27,9 @@ public class Controleur implements ActionListener, MouseListener {
     /**
      * Tortue.
      */
-    private Tortue currentTortue;
+    private TortueAmelioree currentTortue;
 
-    private ArrayList<Tortue> tortues = new ArrayList<Tortue>();
+    private ArrayList<TortueAmelioree> tortues = new ArrayList<TortueAmelioree>();
 
     public SimpleLogo getSimpleLogo() {
         return simpleLogo;
@@ -38,7 +40,7 @@ public class Controleur implements ActionListener, MouseListener {
     }
 
     public Controleur() {
-        currentTortue = new Tortue();
+        currentTortue = new TortueAmelioree();
         tortues.add(currentTortue);
         simpleLogo = new SimpleLogo(this);
         currentTortue.addObserver(simpleLogo);
@@ -78,11 +80,13 @@ public class Controleur implements ActionListener, MouseListener {
         } else if (c.equals("Quitter")) {
             simpleLogo.quitter();
         } else if (c.equals("Ajouter")){
-            Tortue t=new Tortue();
+            TortueAmelioree t=new TortueAmelioree();
             tortues.add(t);
+            t.setNom(t.getNom()+tortues.indexOf(t));
             t.addObserver(simpleLogo);
             simpleLogo.getTortues().add(t);
             simpleLogo.setCourante(t);
+            simpleLogo.getFeuille().addTortue(new VueTortue(t));
             currentTortue=t;
             t.notifyObservers();
         }
@@ -91,9 +95,9 @@ public class Controleur implements ActionListener, MouseListener {
 
     public void mouseClicked(MouseEvent e) {
         try {
-            Tortue cTortue = tortues
+            TortueAmelioree cTortue = tortues
                     .parallelStream().filter(t -> {
-                        Polygon polygon = FeuilleDessin.getPolygon(t);
+                        Polygon polygon = VueTortue.getPolygon(t);
                         return (polygon.contains(e.getX(), e.getY()));
                     }).findAny().get();
             currentTortue=cTortue;

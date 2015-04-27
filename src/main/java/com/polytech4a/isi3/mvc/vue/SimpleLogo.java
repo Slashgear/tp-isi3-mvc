@@ -117,8 +117,8 @@ public class SimpleLogo extends JFrame implements Observer{
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox) e.getSource();
                 int n = cb.getSelectedIndex();
-                String color= (String) cb.getItemAt(n);
-                Color c=map.get(color);
+                String color = (String) cb.getItemAt(n);
+                Color c = map.get(color);
                 courante.setColor(c);
             }
         });
@@ -138,7 +138,7 @@ public class SimpleLogo extends JFrame implements Observer{
         addMenuItem(menuCommandes, "Avancer", "Avancer", -1);
         addMenuItem(menuCommandes, "Gauche", "Gauche", -1);
         addMenuItem(menuCommandes, "Droite", "Droite", -1);
-        addMenuItem(menuCommandes,"Ajouter Tortue","Ajouter Tortue",-1);
+        addMenuItem(menuCommandes, "Ajouter Tortue", "Ajouter Tortue", -1);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         feuille = new FeuilleDessin(); //500, 400);
@@ -148,7 +148,7 @@ public class SimpleLogo extends JFrame implements Observer{
 
         getContentPane().add(feuille, "Center");
 
-        feuille.addTortue(this.courante);
+        feuille.addTortue(new VueTortue(this.courante));
 
         pack();
         setVisible(true);
@@ -219,7 +219,6 @@ public class SimpleLogo extends JFrame implements Observer{
     }
 
     public void update(Observable o, Object arg) {
-        feuille.setTortues(this.tortues);
         this.getFeuille().repaint();
     }
 }

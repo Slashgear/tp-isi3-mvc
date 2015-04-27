@@ -19,26 +19,26 @@ import java.util.*;
  */
 
 public class FeuilleDessin extends JPanel {
-    private ArrayList<Tortue> tortues; // la liste des tortues enregistrees
+    private ArrayList<ITortue> tortues; // la liste des tortues enregistrees
 
     protected static final int rp = 10, rb = 5; // Taille de la pointe et de la base de la fleche
 
-    public void setTortues(ArrayList<Tortue> tortues) {
+    public void setTortues(ArrayList<ITortue> tortues) {
         this.tortues = tortues;
     }
 
     public FeuilleDessin() {
-        tortues = new ArrayList<Tortue>();
+        tortues = new ArrayList<ITortue>();
     }
 
-    public void addTortue(Tortue o) {
+    public void addTortue(ITortue o) {
         tortues.add(o);
     }
 
     public void reset() {
         for (Iterator it = tortues.iterator(); it.hasNext(); ) {
-            Tortue t = (Tortue) it.next();
-            t.reset();
+            ITortue t = (ITortue) it.next();
+            t.getTortue().reset();
         }
     }
 
@@ -57,41 +57,9 @@ public class FeuilleDessin extends JPanel {
 
     public void showTurtles(Graphics g) {
         for (Iterator it = tortues.iterator(); it.hasNext(); ) {
-            Tortue t = (Tortue) it.next();
-            drawTurtle(t, g);
+            ITortue t = (ITortue) it.next();
+            t.draw(g);
         }
     }
 
-    public void drawTurtle(Tortue t, Graphics g) {
-        g.setColor(t.getColor());
-        g.fillPolygon(getPolygon(t));
-    }
-
-    public static Polygon getPolygon(Tortue tortue) {
-        Point p = new Point(tortue.getPosition().getX(), tortue.getPosition().getY());
-        Polygon arrow = new Polygon();
-
-        //Calcule des deux bases
-        //Angle de la droite
-        double theta = FastMath.toRadians(-tortue.getDirection());
-        //Demi angle au sommet du triangle
-        double alpha = Math.atan((float) rb / (float) rp);
-        //Rayon de la fleche
-        double r = Math.sqrt(rp * rp + rb * rb);
-        //Sens de la fleche
-
-        //Pointe
-        Point p2 = new Point((int) Math.round(p.x + r * Math.cos(theta)),
-                (int) Math.round(p.y - r * Math.sin(theta)));
-        arrow.addPoint(p2.x, p2.y);
-        arrow.addPoint((int) Math.round(p2.x - r * Math.cos(theta + alpha)),
-                (int) Math.round(p2.y + r * Math.sin(theta + alpha)));
-
-        //Base2
-        arrow.addPoint((int) Math.round(p2.x - r * Math.cos(theta - alpha)),
-                (int) Math.round(p2.y + r * Math.sin(theta - alpha)));
-
-        arrow.addPoint(p2.x, p2.y);
-        return arrow;
-    }
 }
