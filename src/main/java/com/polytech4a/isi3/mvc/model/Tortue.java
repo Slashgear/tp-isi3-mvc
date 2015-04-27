@@ -10,7 +10,7 @@ import org.apache.commons.math3.util.FastMath;
  *          <p/>
  *          Classe modèle pour la Tortue.
  */
-public class Tortue {
+public class Tortue{
 
     /**
      * Position de la tortue.
@@ -22,8 +22,17 @@ public class Tortue {
      */
     private double direction;
 
+    public Position getPosition() {
+        return position;
+    }
+
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public void setPosition(int x,int y){
+        this.position.setX(x);
+        this.position.setY(y);
     }
 
     public double getDirection() {
