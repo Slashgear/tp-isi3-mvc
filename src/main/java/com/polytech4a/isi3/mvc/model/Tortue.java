@@ -22,6 +22,18 @@ public class Tortue {
      */
     private double direction;
 
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public double getDirection() {
+        return direction;
+    }
+
+    public void setDirection(double direction) {
+        this.direction = direction;
+    }
+
     /**
      * Constructeur.
      *
