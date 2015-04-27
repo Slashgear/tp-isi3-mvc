@@ -58,7 +58,8 @@ public class Tortue{
      * Constructeur vide. Initialise une position et un angle par défaut : (0;0) et -90°
      */
     public Tortue() {
-        reset();
+        this.position=new Position(0,0);
+        this.direction=-90;
     }
 
     /**
