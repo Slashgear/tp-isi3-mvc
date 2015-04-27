@@ -10,6 +10,8 @@ import java.util.List;
  *
  * @author Adrien CHAUSSENDE
  * @version 1.0
+ *          <p/>
+ *          Classe modèle pour une tortue améliorée.
  */
 public class TortueAmelioree extends Tortue {
 
