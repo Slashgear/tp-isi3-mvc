@@ -4,10 +4,8 @@ package com.polytech4a.isi3.mvc.vue;
 import com.polytech4a.isi3.mvc.controller.Controleur;
 import com.polytech4a.isi3.mvc.model.Tortue;
 
-import java.awt.*;
-
 import javax.swing.*;
-
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,6 +97,7 @@ public class SimpleLogo extends JFrame implements Observer{
         addButton(toolBar, "Gauche", "Gauche 45", null);
         addButton(toolBar, "Droite", "Droite 45", null);
         addButton(toolBar, "Ajouter","ajouter",null);
+        addButton(toolBar, "Jeu de balle", "JeuDeBalle", null);
         toolBar.add(tortueName);
 
         final HashMap<String,Color> map=new HashMap<String, Color>();
@@ -143,6 +142,7 @@ public class SimpleLogo extends JFrame implements Observer{
         addMenuItem(menuCommandes, "Gauche", "Gauche", -1);
         addMenuItem(menuCommandes, "Droite", "Droite", -1);
         addMenuItem(menuCommandes, "Ajouter Tortue", "Ajouter Tortue", -1);
+        addMenuItem(menuCommandes, "Jeu de balle", "JeuDeBalle", -1);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         feuille = new FeuilleDessin(); //500, 400);

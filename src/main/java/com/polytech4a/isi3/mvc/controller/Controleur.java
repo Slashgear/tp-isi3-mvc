@@ -1,14 +1,19 @@
 package com.polytech4a.isi3.mvc.controller;
 
 
+import com.polytech4a.isi3.mvc.model.JeuDeBalle;
 import com.polytech4a.isi3.mvc.model.Tortue;
 import com.polytech4a.isi3.mvc.model.TortueAmelioree;
-import com.polytech4a.isi3.mvc.vue.FeuilleDessin;
+import com.polytech4a.isi3.mvc.model.TortueJoueuse;
 import com.polytech4a.isi3.mvc.vue.SimpleLogo;
+import com.polytech4a.isi3.mvc.vue.VueBalle;
 import com.polytech4a.isi3.mvc.vue.VueTortue;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -31,6 +36,10 @@ public class Controleur implements ActionListener, MouseListener {
 
     private ArrayList<TortueAmelioree> tortues = new ArrayList<TortueAmelioree>();
 
+    private boolean gameRunning;
+
+    private JeuDeBalle jeu;
+
     public SimpleLogo getSimpleLogo() {
         return simpleLogo;
     }
@@ -44,6 +53,7 @@ public class Controleur implements ActionListener, MouseListener {
         tortues.add(currentTortue);
         simpleLogo = new SimpleLogo(this);
         currentTortue.addObserver(simpleLogo);
+        gameRunning = false;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -79,22 +89,46 @@ public class Controleur implements ActionListener, MouseListener {
             simpleLogo.effacer();
         } else if (c.equals("Quitter")) {
             simpleLogo.quitter();
-        } else if (c.equals("Ajouter")){
-            if(!simpleLogo.getTortueName().isEmpty()){
-                TortueAmelioree t=new TortueAmelioree();
+        } else if (c.equals("Ajouter")) {
+            if (!simpleLogo.getTortueName().isEmpty()) {
+                TortueAmelioree t;
+                if (gameRunning) {
+                    TortueJoueuse joueur = new TortueJoueuse();
+                    joueur.setNom("Joueur " + jeu.getTortuesJoueuses().size());
+                    jeu.getTortuesJoueuses().add(joueur);
+                    t = joueur;
+                } else {
+                    t = new TortueAmelioree();
+                }
                 t.getTortuesConnues().addAll(tortues);
-                tortues.parallelStream().forEach(ct->ct.getTortuesConnues().add(t));
+                tortues.parallelStream().forEach(ct -> ct.getTortuesConnues().add(t));
                 tortues.add(t);
                 t.setNom(simpleLogo.getTortueName());
                 t.addObserver(simpleLogo);
                 simpleLogo.getTortues().add(t);
                 simpleLogo.setCourante(t);
                 simpleLogo.getFeuille().addTortue(new VueTortue(t));
-                currentTortue=t;
+                currentTortue = t;
                 t.notifyObservers();
-            }else {
+            } else {
                 System.out.println("Nom de la tortue Vide");
             }
+        } else if (c.equals("Jeu de balle")) {
+            jeu = JeuDeBalle.jeuDeBallFactory(4);
+            tortues.clear();
+            tortues.addAll(jeu.getTortuesJoueuses());
+            tortues.parallelStream().forEach(t -> t.addObserver(simpleLogo));
+            simpleLogo.getTortues().clear();
+            simpleLogo.getTortues().addAll(tortues);
+            simpleLogo.setCourante(jeu.getTortuesJoueuses().parallelStream().filter(t -> t.getBalle() != null).findAny().get());
+            currentTortue = jeu.getTortuesJoueuses().parallelStream().filter(t -> t.getBalle() != null).findAny().get();
+            simpleLogo.getFeuille().getTortues().clear();
+            for (Tortue t : tortues) {
+                simpleLogo.getFeuille().addTortue(new VueTortue(t));
+            }
+            simpleLogo.getFeuille().addTortue(new VueBalle(jeu.getBalle()));
+            gameRunning = true;
+
         }
         simpleLogo.getFeuille().repaint();
     }
@@ -106,7 +140,7 @@ public class Controleur implements ActionListener, MouseListener {
                         Polygon polygon = VueTortue.getPolygon(t);
                         return (polygon.contains(e.getX(), e.getY()));
                     }).findAny().get();
-            currentTortue=cTortue;
+            currentTortue = cTortue;
             simpleLogo.setCourante(cTortue);
             System.out.println("Changement de tortue courante");
         } catch (NoSuchElementException ex) {

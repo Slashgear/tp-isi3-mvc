@@ -10,22 +10,4 @@ package com.polytech4a.isi3.mvc.model;
  */
 public class TortueBalle extends Tortue {
 
-    /**
-     * Possesseur de la Tortue Balle.
-     */
-    private Tortue possesseur;
-
-    /**
-     * Constructeur.
-     *
-     * @param possesseur possesseur de la tortue balle.
-     */
-    public TortueBalle(Tortue possesseur) {
-        super(possesseur.getPosition(), possesseur.getDirection());
-        this.possesseur = possesseur;
-    }
-
-    public void setPossesseur(Tortue possesseur) {
-        this.possesseur = possesseur;
-    }
 }

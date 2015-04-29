@@ -1,12 +1,10 @@
 package com.polytech4a.isi3.mvc.vue;// package logo;
 
 
-import com.polytech4a.isi3.mvc.model.Tortue;
-import org.apache.commons.math3.util.FastMath;
-
-import java.awt.*;
 import javax.swing.*;
-import java.util.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Titre :        Logo
@@ -29,6 +27,10 @@ public class FeuilleDessin extends JPanel {
 
     public FeuilleDessin() {
         tortues = new ArrayList<ITortue>();
+    }
+
+    public ArrayList<ITortue> getTortues() {
+        return tortues;
     }
 
     public void addTortue(ITortue o) {

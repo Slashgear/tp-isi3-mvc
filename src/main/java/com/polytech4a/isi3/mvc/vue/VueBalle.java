@@ -19,6 +19,7 @@ public class VueBalle extends ITortue {
     @Override
     public void draw(Graphics graphics) {
         Point p = new Point(getTortue().getPosition().getX(), getTortue().getPosition().getY());
+        graphics.setColor(Color.red);
         graphics.drawOval(p.x,p.y,10,10);
     }
 }

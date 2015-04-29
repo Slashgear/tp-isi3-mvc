@@ -27,6 +27,7 @@ public class TortueJoueuse extends TortueAmelioree {
 
     public void takeBall(TortueBalle balle){
         this.balle=balle;
+        balle.setPosition(this.getPosition());
     }
 
     public void loseBall(){
