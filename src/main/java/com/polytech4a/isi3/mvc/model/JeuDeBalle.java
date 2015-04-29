@@ -10,7 +10,13 @@ import java.util.Random;
  * @author Adrien CHAUSSENDE
  * @version 1.0
  */
-public class JeuDeBalle {
+public class JeuDeBalle implements Runnable {
+
+    private final static int wait = 1000;
+
+    private final static int keep = 10;
+
+    private int currentkeep = 0;
 
     private ArrayList<TortueJoueuse> tortuesJoueuses = new ArrayList<>();
 
@@ -32,7 +38,7 @@ public class JeuDeBalle {
     public void etapeJeu() {
         Random rdm = new Random(System.currentTimeMillis());
         tortuesJoueuses.parallelStream().forEach(t -> {
-            int dist = rdm.nextInt(10);
+            int dist = rdm.nextInt(50);
             t.setDirection(rdm.nextDouble() * 360 - 180);
             t.avancer(dist);
         });
@@ -53,4 +59,15 @@ public class JeuDeBalle {
         return new JeuDeBalle(tortuesJoueuses, tortueBalle);
     }
 
+    @Override
+    public void run() {
+        do {
+            try {
+                Thread.sleep(wait);
+                this.etapeJeu();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } while (true);
+    }
 }

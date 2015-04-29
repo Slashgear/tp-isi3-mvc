@@ -23,7 +23,7 @@ import java.util.NoSuchElementException;
  * @author Antoine CARON
  * @version 1.0
  */
-public class Controleur implements ActionListener, MouseListener {
+public class Controleur extends Thread implements ActionListener, MouseListener {
     /**
      * Vue.
      */
@@ -35,6 +35,8 @@ public class Controleur implements ActionListener, MouseListener {
     private TortueAmelioree currentTortue;
 
     private ArrayList<TortueAmelioree> tortues = new ArrayList<TortueAmelioree>();
+
+    private Thread jeuThread;
 
     private boolean gameRunning;
 
@@ -128,6 +130,8 @@ public class Controleur implements ActionListener, MouseListener {
             }
             simpleLogo.getFeuille().addTortue(new VueBalle(jeu.getBalle()));
             gameRunning = true;
+            jeuThread = new Thread(jeu);
+            jeuThread.start();
 
         }
         simpleLogo.getFeuille().repaint();
