@@ -17,6 +17,11 @@ public class TortueJoueuse extends TortueAmelioree {
         return balle;
     }
 
+
+    public void setBalle(TortueBalle balle) {
+        this.balle = balle;
+    }
+
     public TortueJoueuse(Position position, double direction, String nom, List<Tortue> tortuesConnues) {
         super(position, direction, nom, tortuesConnues);
     }
@@ -28,6 +33,18 @@ public class TortueJoueuse extends TortueAmelioree {
     public void takeBall(TortueBalle balle){
         this.balle=balle;
         balle.setPosition(this.getPosition());
+    }
+
+    public boolean passBall() {
+        for (Tortue t : getTortuesConnues()) {
+            if (estProche(t) && t instanceof TortueJoueuse) {
+                ((TortueJoueuse) t).setBalle(balle);
+                balle.setPosition(t.getPosition());
+                loseBall();
+                return false;
+            }
+        }
+        return true;
     }
 
     public void loseBall(){

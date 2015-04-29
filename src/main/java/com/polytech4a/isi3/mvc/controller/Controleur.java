@@ -117,6 +117,14 @@ public class Controleur extends Thread implements ActionListener, MouseListener 
             }
         } else if (c.equals("Jeu de balle")) {
             jeu = JeuDeBalle.jeuDeBallFactory(4);
+            ArrayList<Color> colors = new ArrayList<>();
+            colors.add(Color.green);
+            colors.add(Color.red);
+            colors.add(Color.blue);
+            colors.add(Color.yellow);
+            for (int i = 0; i < jeu.getTortuesJoueuses().size(); i++) {
+                jeu.getTortuesJoueuses().get(i).setColor(colors.get(i));
+            }
             tortues.clear();
             tortues.addAll(jeu.getTortuesJoueuses());
             tortues.parallelStream().forEach(t -> t.addObserver(simpleLogo));
