@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Adrien CHAUSSENDE
  * @version 1.0
- *          <p/>
+ *          <p>
  *          Classe modèle pour une tortue améliorée.
  */
 public class TortueAmelioree extends Tortue {
@@ -35,10 +35,6 @@ public class TortueAmelioree extends Tortue {
 
     public List<Tortue> getTortuesConnues() {
         return tortuesConnues;
-    }
-
-    public void setTortuesConnues(List<Tortue> tortuesConnues) {
-        this.tortuesConnues = tortuesConnues;
     }
 
     /**
@@ -128,8 +124,8 @@ public class TortueAmelioree extends Tortue {
     @Override
     public void avancer(int dist) {
         super.avancer(dist);
-        tortuesConnues.parallelStream().filter(t -> this.estProche(t)).forEach(t -> {
-            StringBuffer message = new StringBuffer();
+        tortuesConnues.parallelStream().filter(this::estProche).forEach(t -> {
+            StringBuilder message = new StringBuilder();
             message.append("SALUT ");
             if (t instanceof TortueAmelioree) {
                 message.append(((TortueAmelioree) t).getNom());

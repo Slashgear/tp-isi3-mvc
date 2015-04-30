@@ -1,7 +1,6 @@
 package com.polytech4a.isi3.mvc.model;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Antoine CARON on 27/04/2015.
@@ -30,8 +29,8 @@ public class TortueJoueuse extends TortueAmelioree {
         super();
     }
 
-    public void takeBall(TortueBalle balle){
-        this.balle=balle;
+    public void takeBall(TortueBalle balle) {
+        this.balle = balle;
         balle.setPosition(this.getPosition());
     }
 
@@ -47,14 +46,7 @@ public class TortueJoueuse extends TortueAmelioree {
         return true;
     }
 
-    public void loseBall(){
-        this.balle=null;
-    }
-
-    public void avancer() {
-        Random rdm = new Random(System.currentTimeMillis());
-        int dist = rdm.nextInt(10);
-        this.setDirection(rdm.nextDouble() * 360 - 180);
-        this.avancer(dist);
+    public void loseBall() {
+        this.balle = null;
     }
 }

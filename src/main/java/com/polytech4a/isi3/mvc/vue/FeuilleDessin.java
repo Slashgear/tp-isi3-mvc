@@ -4,7 +4,6 @@ package com.polytech4a.isi3.mvc.vue;// package logo;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Titre :        Logo
@@ -18,8 +17,6 @@ import java.util.Iterator;
 
 public class FeuilleDessin extends JPanel {
     private ArrayList<ITortue> tortues; // la liste des tortues enregistrees
-
-    protected static final int rp = 10, rb = 5; // Taille de la pointe et de la base de la fleche
 
     public void setTortues(ArrayList<ITortue> tortues) {
         this.tortues = tortues;
@@ -38,8 +35,7 @@ public class FeuilleDessin extends JPanel {
     }
 
     public void reset() {
-        for (Iterator it = tortues.iterator(); it.hasNext(); ) {
-            ITortue t = (ITortue) it.next();
+        for (ITortue t : tortues) {
             t.getTortue().reset();
         }
     }
@@ -58,8 +54,7 @@ public class FeuilleDessin extends JPanel {
     }
 
     public void showTurtles(Graphics g) {
-        for (Iterator it = tortues.iterator(); it.hasNext(); ) {
-            ITortue t = (ITortue) it.next();
+        for (ITortue t : tortues) {
             t.draw(g);
         }
     }

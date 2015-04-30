@@ -7,7 +7,6 @@ import com.polytech4a.isi3.mvc.model.Tortue;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -23,29 +22,19 @@ import java.util.Observer;
  * Cours de DESS TNI - Montpellier II
  *
  * @version 2.0
- * @date 25/09/
- * <p>
- * <p>
- * ************************************************************************
+ *          <p>
+ *          <p>
+ *          ************************************************************************
  */
 
 
-public class SimpleLogo extends JFrame implements Observer{
-    public static final Dimension VGAP = new Dimension(1, 5);
+public class SimpleLogo extends JFrame implements Observer {
     public static final Dimension HGAP = new Dimension(5, 1);
-
     private FeuilleDessin feuille;
     private Tortue courante;
     private JTextField inputValue;
     private Controleur controleur;
-
     private JTextField tortueName;
-
-    private ArrayList<Tortue> tortues=new ArrayList<Tortue>();
-
-    public ArrayList<Tortue> getTortues() {
-        return tortues;
-    }
 
     public void setCourante(Tortue courante) {
         this.courante = courante;
@@ -63,7 +52,6 @@ public class SimpleLogo extends JFrame implements Observer{
         super("un logo tout simple");
         this.controleur = controleur;
         this.courante = controleur.getCurrentTortue();
-        tortues.add(courante);
         logoInit();
         feuille.addMouseListener(controleur);
         this.setVisible(true);
@@ -90,30 +78,30 @@ public class SimpleLogo extends JFrame implements Observer{
 
         toolBar.add(Box.createRigidArea(HGAP));
         inputValue = new JTextField("45", 5);
-        tortueName =new JTextField("",5);
+        tortueName = new JTextField("", 5);
         tortueName.setToolTipText("Nom de la nouvelle Tortue");
         toolBar.add(inputValue);
         addButton(toolBar, "Avancer", "Avancer 50", null);
         addButton(toolBar, "Gauche", "Gauche 45", null);
         addButton(toolBar, "Droite", "Droite 45", null);
-        addButton(toolBar, "Ajouter","ajouter",null);
+        addButton(toolBar, "Ajouter", "ajouter", null);
         addButton(toolBar, "Jeu de balle", "JeuDeBalle", null);
         toolBar.add(tortueName);
 
-        final HashMap<String,Color> map=new HashMap<String, Color>();
-        map.put("noir",Color.black);
-        map.put("red",Color.red);
-        map.put("bleu",Color.blue);
-        map.put("cyan",Color.cyan);
-        map.put("gris",Color.darkGray);
-        map.put("yellow",Color.yellow);
-        map.put("magenta",Color.magenta);
+        final HashMap<String, Color> map = new HashMap<String, Color>();
+        map.put("noir", Color.black);
+        map.put("red", Color.red);
+        map.put("bleu", Color.blue);
+        map.put("cyan", Color.cyan);
+        map.put("gris", Color.darkGray);
+        map.put("yellow", Color.yellow);
+        map.put("magenta", Color.magenta);
 
         // Create the combo box
         toolBar.add(Box.createRigidArea(HGAP));
         JLabel colorLabel = new JLabel("   Couleur: ");
         toolBar.add(colorLabel);
-        JComboBox colorList = new JComboBox(map.keySet().toArray());
+        JComboBox<Object> colorList = new JComboBox<Object>(map.keySet().toArray());
         toolBar.add(colorList);
 
         colorList.addActionListener(new ActionListener() {
@@ -159,13 +147,11 @@ public class SimpleLogo extends JFrame implements Observer{
     }
 
     public String getInputValue() {
-        String s = inputValue.getText();
-        return (s);
+        return inputValue.getText();
     }
 
-    public String getTortueName(){
-        String s= tortueName.getText();
-        return s;
+    public String getTortueName() {
+        return tortueName.getText();
     }
 
 

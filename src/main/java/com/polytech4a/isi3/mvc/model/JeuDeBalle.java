@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class JeuDeBalle implements Runnable {
 
-    private final static int wait = 500;
+    private final static int wait = 100;
 
     private final static int keep = 10;
 
@@ -43,8 +43,8 @@ public class JeuDeBalle implements Runnable {
         canPass = tortuesJoueuses.parallelStream().filter(t -> t.getBalle() != null).findAny().get().passBall();
         new Thread(() -> waitPass()).run();
         tortuesJoueuses.parallelStream().forEach(t -> {
-            int dist = rdm.nextInt(50);
-            t.setDirection(rdm.nextDouble() * 360 - 180);
+            int dist = rdm.nextInt(20);
+            if (dist % 2 ==0) t.setDirection(rdm.nextDouble() * 360 - 180);
             t.avancer(dist);
         });
     }

@@ -10,10 +10,10 @@ import java.util.Observable;
  *
  * @author Adrien CHAUSSENDE
  * @version 1.0
- *          <p/>
+ *          <p>
  *          Classe modèle pour la Tortue.
  */
-public class Tortue extends Observable{
+public class Tortue extends Observable {
 
     /**
      * Position de la tortue.
@@ -50,7 +50,7 @@ public class Tortue extends Observable{
         this.notifyObservers();
     }
 
-    public void setPosition(int x,int y){
+    public void setPosition(int x, int y) {
         this.position.setX(x);
         this.position.setY(y);
         this.setChanged();
@@ -74,7 +74,7 @@ public class Tortue extends Observable{
     public Tortue(Position position, double direction) {
         this.position = position;
         this.direction = direction;
-        this.color=Color.green;
+        this.color = Color.green;
         this.setChanged();
         this.notifyObservers();
     }
@@ -83,9 +83,9 @@ public class Tortue extends Observable{
      * Constructeur vide. Initialise une position et un angle par défaut : (0;0) et -90°
      */
     public Tortue() {
-        this.position=new Position(500 / 2, 400 / 2);
-        this.direction=-90;
-        this.color=Color.green;
+        this.position = new Position(500 / 2, 400 / 2);
+        this.direction = -90;
+        this.color = Color.green;
         this.setChanged();
         this.notifyObservers();
     }
@@ -96,8 +96,8 @@ public class Tortue extends Observable{
      * @param dist distance sur laquelle avancer.
      */
     public void avancer(int dist) {
-        int x=(int) FastMath.round(position.getX() + dist * FastMath.cos(FastMath.toRadians(direction)));
-        int y=(int) FastMath.round(position.getY() + dist * FastMath.sin(FastMath.toRadians(direction)));
+        int x = (int) FastMath.round(position.getX() + dist * FastMath.cos(FastMath.toRadians(direction)));
+        int y = (int) FastMath.round(position.getY() + dist * FastMath.sin(FastMath.toRadians(direction)));
         position.setX(x);
         position.setY(y);
         this.setChanged();
@@ -130,8 +130,8 @@ public class Tortue extends Observable{
      * Réinitialisation aux valeurs par défaut de la tortue.
      */
     public void reset() {
-        position.setX(500/2);
-        position.setY(400/2);
+        position.setX(500 / 2);
+        position.setY(400 / 2);
         direction = -90;
         this.setChanged();
         this.notifyObservers();
